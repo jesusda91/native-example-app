@@ -1,11 +1,11 @@
 import React from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
 
-const Panel = ({ onPressLeft, textLeft }) => {
+const Panel = ({ onPressLeft, textLeft, handleTooglePointsFilter }) => {
 	return (
 		<View style={styles.panel}>
 			<Button onPress={onPressLeft} title={textLeft} />
-			<Button title="Mostrar/Ocultar" />
+			<Button title="Mostrar/Ocultar" onPress={handleTooglePointsFilter} />
 		</View>
 	)
 }

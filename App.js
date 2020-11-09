@@ -14,6 +14,7 @@ export default function App() {
 	const [tempPoint, setTempPoint] = useState({});
 	const [visibility, setVisibility] = useState(false);
 	const [visibilityFilter, setVisibilityFilter] = useState('new_point');
+	const [pointsFilter, setPointsFilter] = useState(true);
 
 	const handleChangeText = text => {
 		setName(text);
@@ -37,31 +38,38 @@ export default function App() {
 		setVisibility(true);
 	}
 
-	console.log(points)
+	const handleTooglePointsFilter = () => setPointsFilter(!pointsFilter)
+
 	return (
 		<View style={styles.container}>
-			<Map handleLongPress={handleLongPress} />
+			<Map
+				handleLongPress={handleLongPress}
+				points={points}
+				pointsFilter={pointsFilter}
+			/>
 			<Panel
 				onPressLeft={handleListPress}
 				textLeft="Lista"
+				handleTooglePointsFilter={handleTooglePointsFilter}
 			/>
 			<Modal visibility={visibility}>
 				{
 					visibilityFilter === 'new_point' ? (
-						<>
-						<Input
-							title="Nombre"
-							placeholder="Nombre del punto"
-							onChangeText={handleChangeText}
-						/>
-						<Button
-							title="Aceptar"
-							onPress={handleSubmit}
-						/>
-						</>
+						<View style={styles.form}>
+							<Input
+								title="Nombre"
+								placeholder="Nombre del punto"
+								onChangeText={handleChangeText}
+							/>
+							<Button
+								title="Aceptar"
+								onPress={handleSubmit}
+							/>
+						</View>
 					) :
 					<List
 						points={points}
+						closeModal={()=>setVisibility(false)}
 					/>
 				}
 			</Modal>
@@ -77,4 +85,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'flex-start',
 	},
+	form: {
+		padding: 15,
+	}
 });

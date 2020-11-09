@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
 
-const List = ({ points }) => {
+const List = ({ points, closeModal }) => {
 
 	const data = points.map(x => x.name);
 
@@ -10,12 +10,16 @@ const List = ({ points }) => {
 			<View style={styles.listContainer}>
 				<FlatList
 					data={data}
-					renderItem={({ item }) => <Text>{item}</Text>}
+					renderItem={({ item }) => (
+						<View style={styles.item}>
+							<Text>{item}</Text>
+						</View>
+					)}
 					keyExtractor={item => item}
 				/>
 			</View>
-			<View>
-				<Button title="Cerrar" />
+			<View style={styles.buttonContainer}>
+				<Button title="Cerrar" onPress={closeModal} />
 			</View>
 		</>
 	)
@@ -24,7 +28,17 @@ const List = ({ points }) => {
 export default List
 
 const styles = StyleSheet.create({
+	buttonContainer: {
+		padding: 15,
+	},
+	item: {
+		borderBottomWidth: 1,
+		borderColor: "#ddd",
+		height: 50,
+		justifyContent: "center",
+		padding: 15,
+	},
 	listContainer: {
 		height: Dimensions.get("window").height - 300,
-	}
+	},
 })
