@@ -1,10 +1,10 @@
 import React from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
 
-const Panel = () => {
+const Panel = ({ onPressLeft, textLeft }) => {
 	return (
 		<View style={styles.panel}>
-			<Button title="Lista" />
+			<Button onPress={onPressLeft} title={textLeft} />
 			<Button title="Mostrar/Ocultar" />
 		</View>
 	)
